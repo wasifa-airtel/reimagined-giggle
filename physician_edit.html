@@ -1,0 +1,71 @@
+
+
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+
+{% block title %}{% if form.instance.pk %}Edit{% else %}Add{% endif %} Doctor and Degrees{% endblock title %}
+
+{% block link %}{{ block.super }}
+    <style type="text/css">
+    .errorlist {
+        list-style: none;
+        color: #B94A48;
+        margin: 0px 0px 9px 0px;
+        padding: 0px;
+    }
+    </style>
+{% endblock link %}
+
+{% block bottom_script %}{{ block.super }}
+    <script type="text/html" id="degree-template">
+    <div id="degree-__prefix__">
+        {{ formset.empty_form }}
+    </div>
+    </script>
+    <script>
+    $(function() {
+        $('.add-degree').click(function(ev){
+            ev.preventDefault();
+            var count = parseInt($('#id_degree_set-TOTAL_FORMS').attr('value'), 10);
+            var tmplMarkup = $('#degree-template').html();
+            var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count)
+            console.log(compiledTmpl);
+            $('div.degrees').append(compiledTmpl);
+            $('#id_degree_set-TOTAL_FORMS').attr('value', count + 1);
+        });
+    });
+    </script>
+{% endblock bottom_script %}
+
+
+{% block base_content %}
+
+<div class="page-header">
+  <h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Doctors and Degrees</h1>
+</div>
+<a href="{% url 'dashboard:physician' %}">Back</a>
+<form action="." method="post">
+    {{ formset.management_form }}
+    {% csrf_token %}
+
+    <legend>Doctor</legend>
+    <div class="doctor">
+    {{ form }}
+    </div>
+
+    <legend>
+            Degrees
+    </legend>
+    <div class="degrees form-inline">
+        {% for form in formset %}
+            {{ form }}
+        {% endfor %}
+    </div>
+  <div class="form-actions">
+     <button type="submit" sclass="btn btn-primary">Save</button>
+   </div>
+ </form>
+
+{% endblock base_content %}

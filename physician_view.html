@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+
+<h1>Doctor and Degrees</h1>
+{% block link %}{{ block.super }}
+    <style type="text/css">
+    .errorlist {
+        list-style: none;
+        color: #B94A48;
+        margin: 0px 0px 9px 0px;
+        padding: 0px;
+    }
+    </style>
+{% endblock link %}
+
+{% block bottom_script %}{{ block.super }}
+    <script type="text/html" id="degree-template">
+    <div id="degree-__prefix__">
+        {{ formset.empty_form }}
+    </div>
+    </script>
+{% endblock bottom_script %}
+
+
+{% block base_content %}
+
+<div class="page-header">
+  <h1>Detail Doctors and Degree</h1>
+</div>
+
+<form action="." method="post">
+    {{ formset.management_form }}
+    {% csrf_token %}
+
+    <legend>Doctor</legend>
+    <div class="doctor">
+    {{ form }}
+    </div>
+
+    <legend>
+            Degrees
+    </legend>
+    <div class="degrees form-inline">
+        {% for form in formset %}
+            {{ form }}
+        {% endfor %}
+    </div>
+
+
+  <div class="form-actions">
+      <a href="{% url 'dashboard:physician' %}">Back</a>
+   </div>
+ </form>
+
+{% endblock base_content %}

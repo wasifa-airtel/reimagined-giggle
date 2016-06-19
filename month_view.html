@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View</title>
+</head><br method="post">{% csrf_token %}
+   <div class="fieldWrapper">
+    <label for="{{ form.month_name.id_for_label }}">Month Name:</label>
+       </br>
+    {{ form.month_name}}
+</div>
+</br>
+<div class="fieldWrapper">
+    <label for="{{ form.month_code.id_for_label }}">Month Code:</label>
+    </br>
+    {{ form.month_code }}
+</div>
+    </br>
+    <div class="fieldWrapper">
+    <label for="{{ form.month_shortname.id_for_label }}">Month Shortname:</label>
+    </br>
+    {{ form.month_shortname }}
+</div>
+    </br>
+  <a href="{% url 'dashboard:month_redirect' %}">Back</a>
+</form>
+<body>
+
+</body>
+</html>

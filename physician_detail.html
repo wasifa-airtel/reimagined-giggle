@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ object.name }}{% endblock title %}
+
+{% block base_content %}
+
+
+<a href="{% url 'dashboard:physician' %}">Back</a>
+
+<h2>Doctor's degrees</h2>
+
+<ul>
+    {% for physician in object.physicial_set.all %}
+    <li><a href="{{ physician.get_absolute_url }}">{{ physician.physician }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock base_content %}

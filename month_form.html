@@ -1,0 +1,22 @@
+<form method="post">{% csrf_token %}
+  <div class="fieldWrapper">
+    <label for="{{ form.month_name.id_for_label }}"> Month Name:</label>
+       </br>
+    {{ form.month_name }}
+</div>
+
+      <div class="fieldWrapper">
+    <label for="{{ form.month_code.id_for_label }}">Month Code:</label>
+       </br>
+    {{ form.month_code }}
+</div>
+
+
+      <div class="fieldWrapper">
+    <label for="{{ form.month_shortname.id_for_label }}">Month Shortname:</label>
+       </br>
+    {{ form.month_shortname }}
+</div>
+    </br>
+    <input type="submit" value="Submit" />
+</form>

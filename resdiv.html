@@ -1,0 +1,106 @@
+{% extends "dashboard/base.html" %}
+{% load staticfiles %}
+
+{% block extrahead %}
+
+<!-- DataTables CSS -->
+<link href="{% static "bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" %}" rel="stylesheet">
+
+<!-- DataTables Responsive CSS -->
+<link href="{% static "bower_components/datatables-responsive/css/dataTables.responsive.css" %}" rel="stylesheet">
+
+{% endblock extrahead %}
+
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Result Division</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="{% url 'dashboard:index' %}">Home</a>
+            </div>
+            <!-- /.panel-heading -->
+
+            <div class="panel-body">
+               <a href="{% url 'dashboard:resdiv_new' %}">Add</a> </br></br>
+
+                <div class="dataTable_wrapper">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+
+                        <thead>
+                            <tr>
+                                <th>Result Division</th>
+                                <th>Result Divison Code</th>
+
+
+                           </tr>
+                        </thead>
+						  <br>
+						<tbody>
+                           {% for res in object_list %}
+	                       <tr class="odd gradeX">
+                           <td>{{ res.res_name}}</td>
+                               <td>{{ res.res_code }}</td>
+                               <td><a href="{% url 'dashboard:resdiv_edit' res.id %}">edit</a></td>
+                               <td><a href="{% url 'dashboard:resdiv_delete' res.id %}">delete</a></td>
+                               <td><a href="{% url 'dashboard:resdiv_view' res.id %}">Detail</a></td>
+
+                           {% endfor %}
+
+						   </tr>
+
+	                     </br><form method="post">{% csrf_token %}
+{#<div class="fieldWrapper">#}
+{#    <label for="{{ form.res_name.id_for_label }}">Result Division:</label>#}
+{#    {{ form.res_name }}#}
+{#</div>#}
+{#    </br>#}
+                               {#<div class="fieldWrapper">#}
+{#    <label for="{{ form.res_code.id_for_label }}">Result Divison Code:</label>#}
+{#    {{ form.res_code }}#}
+{#</div>#}
+{#    </br>#}
+
+{#      <input type="submit" value="Submit" />#}
+
+
+ </form>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
+    </div>
+</div>
+
+<!-- /.row -->
+
+{% endblock content %}
+
+
+{% block extrajs %}
+
+<!-- DataTables JavaScript -->
+<script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script>
+$(document).ready(function() {
+    $('#dataTables-example').DataTable({
+            responsive: true
+    });
+});
+</script>
+
+{% endblock extrajs %}

@@ -1,0 +1,7 @@
+<form method="">{% csrf_token %}
+    {{ form.instance.sku }} <!-- this prints the value -->
+    {{ form }} <!-- prints form normally, and makes the hidden input -->
+</br>
+</br>
+    <a href="{% url 'dashboard:division_redirect' %}">Back</a>
+</form>

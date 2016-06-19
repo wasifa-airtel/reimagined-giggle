@@ -1,0 +1,133 @@
+
+
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+
+{% block title %}{% if form.instance.pk %}Edit{% else %}Add{% endif %} Doctor and Degrees{% endblock title %}
+
+{% block link %}{{ block.super }}
+    <style type="text/css">
+    .errorlist {
+        list-style: none;
+        color: #B94A48;
+        margin: 0px 0px 9px 0px;
+        padding: 0px;
+    }
+    </style>
+{% endblock link %}
+
+{% block bottom_script %}{{ block.super }}
+    <script type="text/html" id="degree-template">
+    <div id="degree-__prefix__">
+        {{ degree_form.empty_form }}
+    </div>
+    </script>
+
+    <script>
+    $(function() {
+        $('.add-degree').click(function(ev){
+            console.log(ev.preventDefault());
+            ev.preventDefault();
+{#            console.log($('#id_degree_set-TOTAL_FORMS').attr('value'));#}
+            var count = parseInt($('#id_physicianeduhealthmapping_set-TOTAL_FORMS').attr('value'), 10);
+{#            console.log(count);#}
+            var tmplMarkup = $('#degree-template').html();
+{#            console.log(tmplMarkup);#}
+            var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count)
+            console.log(compiledTmpl);
+            $('div.degrees').append(compiledTmpl);
+            $('#id_physicianeduhealthmapping_set-TOTAL_FORMS').attr('value', count + 1);
+        });
+    });
+    </script>
+
+
+
+
+{#    <script>#}
+{#    $(function() {#}
+{#        $('.add-degree').click(function(ev){#}
+{#            ev.preventDefault();#}
+{#            var count = parseInt($('#id_degrees_set-TOTAL_FORMS').attr('value'), 10);#}
+{#            console.log(count);#}
+{#            var tmplMarkup = $('#degree-template').html();#}
+{#            console.log(tmplMarkup);#}
+{#            var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count)#}
+{#            console.log(compiledTmpl);#}
+{#            $('div.degrees').append(compiledTmpl);#}
+{#            $('#id_degrees_set-TOTAL_FORMS').attr('value', count + 1);#}
+{#        });#}
+{#    });#}
+{#    </script>#}
+
+{% endblock bottom_script %}
+
+
+{% block base_content %}
+
+<div class="page-header">
+  <h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Doctors and Degrees</h1>
+</div>
+
+<form action="." method="post">
+    {{ degree_form.management_form }}
+    {{ training_form.management_form }}
+    {{ edu_form.management_form }}
+    {{ physician_professional_form.management_form }}
+    {% csrf_token %}
+
+    <legend>Doctor</legend>
+    <div class="doctor">
+    {{ form }}
+    </div>
+
+    <legend>
+        <div class="pull-right"><a href="#" class="btn btn-inverse add-degree"><i class="icon-plus icon-white"></i> Add Degree</a></div>
+        Degrees
+    </legend>
+    <div class="degrees form-inline">
+        {% for form in degree_form %}
+            {{ form }}
+        {% endfor %}
+    </div>
+
+    <legend>
+        <div class="pull-right"><a href="#" class="btn btn-inverse add-training"><i class="icon-plus icon-white"></i> Add Training</a></div>
+        Training
+    </legend>
+
+    <div class="training form-inline">
+        {% for form in training_form %}
+            {{ form }}
+        {% endfor %}
+    </div>
+     <legend>
+        <div class="pull-right"><a href="#" class="btn btn-inverse add-edu"><i class="icon-plus icon-white"></i> Add Training</a></div>
+        Educational Qualification
+    </legend>
+    <div class="educationalqualification form-inline">
+        {% for form in edu_form %}
+            {{ form }}
+        {% endfor %}
+    </div>
+
+   </div>
+     <legend>
+        <div class="pull-right"><a href="#" class="btn btn-inverse add-edu"><i class="icon-plus icon-white"></i> Add Training</a></div>
+     Professional Experience
+     </legend>
+    <div class="professionalexperience form-inline">
+        {% for form in physician_professional_form %}
+            {{ form }}
+        {% endfor %}
+    </div>
+
+
+  <div class="form-actions">
+     <button type="submit" class="btn btn-primary">Save</button>
+   </div>
+ </form>
+
+{% endblock base_content %}

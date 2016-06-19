@@ -1,0 +1,21 @@
+<form method="">{% csrf_token %}
+<div class="fieldWrapper">
+    <label for="{{ form.name.id_for_label }}">District Name:</label>
+    {{ form.name }}
+</div>
+</br>
+<div class="fieldWrapper">
+    {{ form.message.errors }}
+    <label for="{{ form.district_code.id_for_label }}">District Code:</label>
+    {{ form.district_code }}
+</div>
+</br>
+<div class="fieldWrapper">
+    {{ form.sender.errors }}
+    <label for="{{ form.division_id.id_for_label }}">Division Name:</label>
+    {{ form.division_id }}
+</div>
+</br>
+</br>
+<a href="{% url 'dashboard:district_redirect' %}">Back</a>
+</form>

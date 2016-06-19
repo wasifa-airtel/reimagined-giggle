@@ -1,0 +1,85 @@
+{% extends "dashboard/base.html" %}
+{% load staticfiles %}
+
+
+{% block extrahead %}
+
+    <!-- DataTables CSS -->
+    <link href="{% static "bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" %}" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="{% static "bower_components/datatables-responsive/css/dataTables.responsive.css" %}" rel="stylesheet">
+
+{% endblock extrahead %}
+
+
+{% block content %}
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">District</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="{% url 'dashboard:index' %}">Home</a>
+    </div>
+    <!-- /.panel-heading -->
+
+    <div class="panel-body">
+        <form method="post">{% csrf_token %}
+            <div class="fieldWrapper">
+                <label for="{{ form.name.id_for_label }}">District Name:</label>
+                {{ form.name }}
+            </div>
+            </br>
+            <div class="fieldWrapper">
+                <label for="{{ form.district_code.id_for_label }}">District Code:</label>
+                {{ form.district_code }}
+            </div>
+            </br>
+            <div class="fieldWrapper">
+                <label for="{{ form.division_id.id_for_label }}">Division Name:</label>
+                {{ form.division_id }}
+            </div>
+            </br>
+            <input type="submit" value="Submit" />
+
+
+        </form>
+
+
+
+    </div>
+
+
+
+
+    <!-- /.row -->
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
